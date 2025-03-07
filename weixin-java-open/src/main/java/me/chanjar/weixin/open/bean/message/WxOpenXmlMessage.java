@@ -123,6 +123,56 @@ public class WxOpenXmlMessage implements Serializable {
   @XStreamAlias("expired")
   private Long expired;
 
+  //region 以下为小程序管理员人脸核身完成事件 推送的消息 infoType=notify_icpfiling_verify_result
+
+  /**
+   * 人脸核验任务id
+   */
+  @XStreamAlias("task_id")
+  private String IcpVerifyTaskId;
+  /**
+   * 小程序唯一id
+   */
+  @XStreamAlias("verify_appid")
+  private String verifyAppId;
+  /**
+   * 人脸核验结果： 2-核验失败；3-核验成功
+   */
+  @XStreamAlias("result")
+  private Integer result;
+  /**
+   * 发起时 along_with_auth 填 true 时有效：9. 认证短信核验通过。
+   */
+  @XStreamAlias("along_with_auth_result")
+  private Integer alongWithAuthResult;
+  //endregion
+
+  //region 当备案审核被驳回或通过时会推送该事件 推送的消息 infoType=notify_apply_icpfiling_result
+  /**
+   * 小程序唯一id
+   */
+  @XStreamAlias("authorizer_appid")
+  private String beianAuthorizerAppId;
+  /**
+   * 备案状态，参考“获取小程序备案状态及驳回原因”接口的备案状态枚举¬
+   */
+  @XStreamAlias("beian_status")
+  private Integer beianStatus;
+  //endregion
+
+  //region 认证及备案流程的主要节点均有事件推送到第三方平台的授权事件接收接口，包括支付完成、派单给审核机构、审核打回、审核通过、审核失败等。消息类型，固定为 notify_3rd_wxa_auth_and_icp
+
+  /**
+   * 小程序认证及备案任务流程 id
+   */
+  @XStreamAlias("procedure_id")
+  private String procedureId;
+  /**
+   * 当前任务流程状态，见“小程序认证及备案进度查询” API 文档中的任务流程状态枚举
+   */
+  @XStreamAlias("procedure_status")
+  private Integer procedureStatus;
+  //endregion
 
   /**
    * 快速创建的小程序appId，已弃用，未来将删除
